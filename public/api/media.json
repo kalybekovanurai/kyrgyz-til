@@ -1,0 +1,30 @@
+[
+  {
+    "id": "p1",
+    "type": "podcast",
+    "title": "Кыргыз тилинин тарыхы",
+    "titleRu": "История кыргызского языка",
+    "guest": "Самат Асанов",
+    "guestRu": "Самат Асанов",
+    "date": "2026-05-05",
+    "url": "https://www.youtube.com/",
+    "thumbnail": "https://images.unsplash.com/photo-1478737270239-2fccd27ee1f3?q=80&w=1000&auto=format&fit=crop",
+    "description": "Кыргыз тилинин келип чыгышы жана өнүгүү этаптары тууралуу подкаст.",
+    "descriptionRu": "Подкаст о происхождении и этапах развития кыргызского языка.",
+    "createdAt": "2026-05-13T00:00:00.000Z",
+    "updatedAt": "2026-05-13T00:00:00.000Z"
+  },
+  {
+    "id": "v1",
+    "type": "survey",
+    "title": "Жаштардын тилге болгон көз карашы",
+    "titleRu": "Отношение молодежи к языку",
+    "date": "2026-05-02",
+    "url": "https://www.youtube.com/",
+    "thumbnail": "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop",
+    "description": "Жаштар кыргыз тилин интернетте канчалык активдүү колдонушат?",
+    "descriptionRu": "Насколько активно молодежь использует кыргызский язык в интернете?",
+    "createdAt": "2026-05-13T00:00:00.000Z",
+    "updatedAt": "2026-05-13T00:00:00.000Z"
+  }
+]

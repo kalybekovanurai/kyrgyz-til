@@ -1,0 +1,15 @@
+export { default as Home } from './Home';
+export { default as Newspaper } from './Newspaper';
+export { default as LearningCenter } from './LearningCenter';
+export { default as Media } from './Media';
+export { default as MediaPodcast } from './MediaPodcast';
+export { default as MediaSurvey } from './MediaSurvey';
+export { default as News } from './News';
+export { default as NewsDetail } from './NewsDetail';
+export { default as LanguagePolicy } from './LanguagePolicy';
+export { default as About } from './About';
+export { default as Contact } from './Contact';
+export { default as Partners } from './Partners';
+export { default as PodcastDetail } from './PodcastDetail';
+export { default as SurveyDetail } from './SurveyDetail';
+export { default as Admin } from './Admin';
