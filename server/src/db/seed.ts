@@ -1,9 +1,9 @@
-import { readCollection, writeCollection, withTimestamps } from './storage';
+import { createItem, listItems } from '../modules/content/content.repository';
 
 async function seedCollection(collection: string, items: Array<Record<string, unknown>>) {
-  const existing = await readCollection(collection);
+  const existing = await listItems(collection);
   if (existing.length > 0) return;
-  await writeCollection(collection, items.map((item) => withTimestamps(item)));
+  await Promise.all(items.map((item) => createItem(collection, item)));
 }
 
 export const seedNews = [
@@ -38,7 +38,6 @@ export const seedMedia = [
   {
     id: 'p1',
     type: 'podcast',
-    category: 'history',
     title: 'Кыргыз тилинин тарыхы',
     titleRu: 'История кыргызского языка',
     guest: 'Самат Асанов',
@@ -52,7 +51,6 @@ export const seedMedia = [
   {
     id: 'v1',
     type: 'survey',
-    category: 'culture',
     title: 'Жаштардын тилге болгон көз карашы',
     titleRu: 'Отношение молодежи к языку',
     date: '2026-05-02',
