@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Play, Mic, Share2, Calendar, User } from 'lucide-react';
 import { fetchMedia } from '@/src/modules/media/mediaThunk';
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
 import { motion } from 'motion/react';
 import { useLanguage } from '@/src/context/LanguageContext';
-import { Link } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function MediaPodcast() {
