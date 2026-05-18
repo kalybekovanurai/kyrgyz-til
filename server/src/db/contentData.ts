@@ -1,0 +1,198 @@
+export const seedNews = [
+  {
+    id: '1',
+    title: 'Мамлекеттик тилди өнүктүрүү боюнча жаңы программа кабыл алынды',
+    titleRu: 'Принята новая программа по развитию государственного языка',
+    date: '2026-05-10',
+    category: 'laws',
+    image: 'https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?q=80&w=1000&auto=format&fit=crop',
+    content:
+      'Жаңы программа кыргыз тилинин билим берүү, мамлекеттик башкаруу, медиа жана санарип кызматтарындагы колдонулушун кеңейтүүгө багытталат.',
+    contentRu:
+      'Новая программа направлена на расширение использования кыргызского языка в образовании, государственном управлении, медиа и цифровых сервисах.',
+  },
+  {
+    id: '2',
+    title: 'Бишкекте “Тил - улуттун күзгүсү” фестивалы өттү',
+    titleRu: 'В Бишкеке прошел фестиваль “Язык - зеркало нации”',
+    date: '2026-05-08',
+    category: 'events',
+    image: 'https://images.unsplash.com/photo-1523240715632-d984bb4b990a?q=80&w=1000&auto=format&fit=crop',
+    content:
+      'Фестивалдын алкагында адабий кечелер, көргөзмөлөр жана тил маданияты боюнча мастер-класстар уюштурулду.',
+    contentRu:
+      'В рамках фестиваля прошли литературные вечера, выставки и мастер-классы по культуре речи.',
+  },
+];
+
+export const seedNewspapers = [
+  {
+    id: 'issue_1',
+    number: '№15 (450)',
+    date: '2026-05-01',
+    pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    title: 'Май айындагы чыгарылыш',
+  },
+  {
+    id: 'issue_2',
+    number: '№14 (449)',
+    date: '2026-04-15',
+    pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    title: 'Апрель айындагы чыгарылыш',
+  },
+  {
+    id: 'issue_3',
+    number: '№13 (448)',
+    date: '2026-03-28',
+    pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    title: 'Март айындагы чыгарылыш',
+  },
+  {
+    id: 'issue_4',
+    number: '№12 (447)',
+    date: '2025-12-20',
+    pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    title: 'Жыл жыйынтыгы чыгарылышы',
+  },
+];
+
+export const seedMedia = [
+  {
+    id: 'p1',
+    type: 'podcast',
+    category: 'history',
+    title: 'Кыргыз тилинин тарыхы',
+    titleRu: 'История кыргызского языка',
+    guest: 'Самат Асанов',
+    guestRu: 'Самат Асанов',
+    date: '2026-05-05',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    thumbnail: 'https://images.unsplash.com/photo-1478737270239-2fccd27ee1f3?q=80&w=1000&auto=format&fit=crop',
+    description: 'Кыргыз тилинин келип чыгышы жана өнүгүү этаптары тууралуу подкаст.',
+    descriptionRu: 'Подкаст о происхождении и этапах развития кыргызского языка.',
+  },
+  {
+    id: 'p2',
+    type: 'podcast',
+    category: 'culture',
+    title: 'Тил маданияты жана сүйлөө этикети',
+    titleRu: 'Культура речи и речевой этикет',
+    guest: 'Айжан Токтосунова',
+    guestRu: 'Айжан Токтосунова',
+    date: '2026-05-09',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    thumbnail: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1000&auto=format&fit=crop',
+    description: 'Коомдук жайларда туура сүйлөө, расмий кайрылуу жана сөз тандоо жөнүндө маек.',
+    descriptionRu: 'Беседа о грамотной речи, официальном обращении и выборе слов в публичной коммуникации.',
+  },
+  {
+    id: 'p3',
+    type: 'podcast',
+    category: 'education',
+    title: 'Мугалимдер үчүн жаңы методикалар',
+    titleRu: 'Новые методики для учителей',
+    guest: 'Нурбек Молдобаев',
+    guestRu: 'Нурбек Молдобаев',
+    date: '2026-05-12',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    thumbnail: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1000&auto=format&fit=crop',
+    description: 'Кыргыз тили сабагын интерактивдүү жана кызыктуу өткөрүү жолдору.',
+    descriptionRu: 'Как сделать урок кыргызского языка интерактивным и интересным.',
+  },
+  {
+    id: 'p4',
+    type: 'podcast',
+    category: 'tech',
+    title: 'Санарип дүйнөдөгү кыргыз тили',
+    titleRu: 'Кыргызский язык в цифровой среде',
+    guest: 'Эрмек Калыков',
+    guestRu: 'Эрмек Калыков',
+    date: '2026-05-14',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop',
+    description: 'Технология, медиа жана жасалма интеллект доорунда кыргыз тилинин мүмкүнчүлүктөрү.',
+    descriptionRu: 'Возможности кыргызского языка в эпоху технологий, медиа и искусственного интеллекта.',
+  },
+  {
+    id: 'v1',
+    type: 'survey',
+    category: 'culture',
+    title: 'Жаштардын тилге болгон көз карашы',
+    titleRu: 'Отношение молодежи к языку',
+    date: '2026-05-02',
+    url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+    thumbnail: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop',
+    description: 'Жаштар кыргыз тилин интернетте канчалык активдүү колдонушат?',
+    descriptionRu: 'Насколько активно молодежь использует кыргызский язык в интернете?',
+  },
+  {
+    id: 'v2',
+    type: 'survey',
+    category: 'education',
+    title: 'Мектепте кыргыз тилин окутуу',
+    titleRu: 'Преподавание кыргызского языка в школе',
+    date: '2026-05-06',
+    url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+    thumbnail: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop',
+    description: 'Окуучулар жана мугалимдер сабактагы жаңы ыкмалар тууралуу ой бөлүшөт.',
+    descriptionRu: 'Ученики и учителя делятся мнением о новых подходах на уроках.',
+  },
+  {
+    id: 'v3',
+    type: 'survey',
+    category: 'tech',
+    title: 'Интернеттеги кыргызча контент',
+    titleRu: 'Кыргызскоязычный контент в интернете',
+    date: '2026-05-11',
+    url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+    thumbnail: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000&auto=format&fit=crop',
+    description: 'Колдонуучулар кыргызча сайттар, подкасттар жана видеолор тууралуу жооп беришет.',
+    descriptionRu: 'Пользователи отвечают о кыргызскоязычных сайтах, подкастах и видео.',
+  },
+  {
+    id: 'v4',
+    type: 'survey',
+    category: 'history',
+    title: 'Эне тил жана үй-бүлө',
+    titleRu: 'Родной язык и семья',
+    date: '2026-05-13',
+    url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+    thumbnail: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000&auto=format&fit=crop',
+    description: 'Үй-бүлөдө эне тилди сактоо жана балдарга үйрөтүү боюнча сурамжылоо.',
+    descriptionRu: 'Опрос о сохранении родного языка в семье и обучении детей.',
+  },
+];
+
+export const seedLessons = [
+  {
+    id: 'text',
+    type: 'text',
+    title: 'Текст менен иштөө',
+    titleRu: 'Работа с текстом',
+    content:
+      'Бул сабакта окуучу кыргыз тилиндеги чакан текстти окуп, негизги ойду табууну, жаңы сөздөрдү белгилөөнү жана сүйлөм түзүүнү үйрөнөт.\n\nТапшырма: “Эне тил” темасында 5 сүйлөмдөн турган чакан текст жазыңыз.',
+    contentRu:
+      'В этом уроке ученик учится читать небольшой текст на кыргызском языке, находить главную мысль, отмечать новые слова и составлять предложения.\n\nЗадание: напишите короткий текст из 5 предложений на тему “Родной язык”.',
+  },
+  {
+    id: 'video',
+    type: 'video',
+    title: 'Орфография боюнча видео сабак',
+    titleRu: 'Видеоурок по орфографии',
+    content:
+      'Видео сабакта кыргыз тилиндеги үндүү жана үнсүз тыбыштардын жазылышы, баш тамга жана тыныш белгилери боюнча негизги эрежелер түшүндүрүлөт.',
+    contentRu:
+      'В видеоуроке объясняются основные правила написания гласных и согласных, употребления заглавных букв и знаков препинания в кыргызском языке.',
+    videoUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+  },
+  {
+    id: 'test',
+    type: 'test',
+    title: 'Кыргыз тили боюнча тест',
+    titleRu: 'Тест по кыргызскому языку',
+    content:
+      'Бул бөлүмдө окуучу кыргыз тили боюнча негизги түшүнүктөрдү текшерет. Суроолор лексика, орфография жана сүйлөм түзүлүшү боюнча түзүлгөн.',
+    contentRu:
+      'В этом разделе ученик проверяет базовые знания кыргызского языка. Вопросы составлены по лексике, орфографии и структуре предложения.',
+  },
+];

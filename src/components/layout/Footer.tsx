@@ -45,7 +45,7 @@ export const Footer = () => {
             <ul className="space-y-3 md:space-y-4">
               {navItems.slice(0, 6).map(item => (
                 <li key={item.name}>
-                  <Link to={item.path} className="text-[12px] md:text-[13px] text-gray-500 font-bold hover:text-brand-primary transition-colors tracking-tight uppercase">{item.name}</Link>
+                  <Link to={item.path} className="cursor-pointer text-[12px] md:text-[13px] text-gray-500 font-bold hover:text-brand-primary transition-colors tracking-tight uppercase">{item.name}</Link>
                 </li>
               ))}
             </ul>
@@ -77,7 +77,7 @@ export const Footer = () => {
            <p className="text-[10px] md:text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center sm:text-left">
              {t('footer.copyright')}
            </p>
-           <button className="text-[10px] md:text-[11px] font-black uppercase text-gray-300 tracking-widest hover:text-brand-primary transition-colors">
+           <button className="cursor-pointer text-[10px] md:text-[11px] font-black uppercase text-gray-300 tracking-widest hover:text-brand-primary transition-colors">
              {t('footer.security')}
            </button>
         </div>

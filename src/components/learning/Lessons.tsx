@@ -31,7 +31,7 @@ export const Lessons = () => {
           const desc = language === 'ky' ? item.content : (item.contentRu || item.content);
 
           return (
-            <Link key={item.id} to={`/learning/${item.id}`} className="block h-full">
+            <Link key={item.id} to={`/learning/${item.id}`} className="cursor-pointer block h-full">
               <Card className="flex h-full flex-col items-center text-center group" hoverEffect>
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-slate-50 text-brand-primary rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center mb-6 md:mb-8 group-hover:bg-brand-primary group-hover:text-white transition-all">
                   <Icon className="w-8 h-8 md:w-10 md:h-10" />

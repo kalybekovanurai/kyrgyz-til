@@ -25,6 +25,9 @@
   button, a, input, textarea {
     @apply min-w-0;
   }
+  button:not(:disabled), a[href], [role="button"] {
+    @apply cursor-pointer;
+  }
 }
 
 @layer components {

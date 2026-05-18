@@ -2,10 +2,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Header, Footer } from './components/layout';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { AppRouter } from './routes/AppRouter';
-
-export default function App() {
-  return (
-    <Router>
+const App = () => {
+    return (<Router>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Header />
@@ -14,6 +12,6 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </Router>
-  );
-}
+    </Router>);
+};
+export default App;

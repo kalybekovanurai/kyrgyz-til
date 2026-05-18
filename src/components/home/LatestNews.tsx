@@ -21,7 +21,7 @@ export const LatestNews = ({ news }: LatestNewsProps) => {
             subtitle={t('nav.news')}
             className="mb-0"
           />
-          <Link to="/news" className="flex items-center gap-3 text-xs font-black uppercase text-gray-400 hover:text-brand-primary transition-colors tracking-widest">
+          <Link to="/news" className="cursor-pointer flex items-center gap-3 text-xs font-black uppercase text-gray-400 hover:text-brand-primary transition-colors tracking-widest">
             {t('common.all')} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -42,7 +42,7 @@ export const LatestNews = ({ news }: LatestNewsProps) => {
                 <h3 className="text-lg md:text-xl font-black text-brand-primary uppercase leading-snug tracking-normal mb-5 md:mb-6 line-clamp-3 group-hover:text-brand-primary/80 transition-colors">
                   {language === 'ky' ? item.title : (item.titleRu || item.title)}
                 </h3>
-                <Link to={`/news/${item.id}`} className="mt-auto inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-primary group-hover:gap-4 transition-all">
+                <Link to={`/news/${item.id}`} className="cursor-pointer mt-auto inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-primary group-hover:gap-4 transition-all">
                   {t('common.read')} <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

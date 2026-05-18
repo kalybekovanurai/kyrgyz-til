@@ -1,103 +1,90 @@
 import React from 'react';
-import { Save } from 'lucide-react';
+import { Save, X } from 'lucide-react';
 import { Button, Card } from '@/src/components/ui';
+import { useLanguage } from '@/src/context/LanguageContext';
 import { cn } from '@/src/lib/utils';
-import { fieldLabels } from '../lib/adminConfig';
-import { AdminFormValues } from '../model/types';
-
+import { categoryOptions, fieldLabels, typeOptions } from '../lib/adminConfig';
+import { AdminCollection, AdminFormValues } from '../model/types';
 type AdminContentFormProps = {
-  values: AdminFormValues;
-  onChange: (key: string, value: string) => void;
-  onSubmit: (event: React.FormEvent) => void;
+    values: AdminFormValues;
+    collection: AdminCollection;
+    onChange: (key: string, value: string) => void;
+    onSubmit: (event: React.FormEvent) => void;
+    isEditing?: boolean;
+    onCancelEdit?: () => void;
 };
-
 const longFields = new Set(['content', 'contentRu', 'description', 'descriptionRu']);
+const text = {
+    ky: { editing: 'Редактирлөө', cancel: 'Жокко чыгаруу', save: 'Өзгөртүүлөрдү сактоо', create: 'Материал кошуу' },
+    ru: { editing: 'Редактирование', cancel: 'Отмена', save: 'Сохранить изменения', create: 'Добавить материал' },
+};
+export const AdminContentForm = ({ values, collection, onChange, onSubmit, isEditing, onCancelEdit, }: AdminContentFormProps) => {
+    const { language } = useLanguage();
+    const copy = text[language];
+    return (<Card>
+      {isEditing && (<div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-4">
+          <span className="text-sm font-black uppercase tracking-widest text-brand-primary">{copy.editing}</span>
+          <button type="button" onClick={onCancelEdit} className="cursor-pointer flex items-center gap-1 text-xs font-bold text-gray-400 transition-colors hover:text-red-500">
+            <X className="h-4 w-4"/> {copy.cancel}
+          </button>
+        </div>)}
 
-export function AdminContentForm({ values, onChange, onSubmit }: AdminContentFormProps) {
-  return (
-    <Card>
       <form onSubmit={onSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {Object.entries(values).map(([key, value]) => (
-            <Field key={key} name={key} value={value} onChange={onChange} />
-          ))}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {Object.entries(values).map(([key, value]) => (<Field key={key} collection={collection} name={key} value={value} onChange={onChange}/>))}
         </div>
         <Button type="submit" icon={Save}>
-          Материал кошуу
+          {isEditing ? copy.save : copy.create}
         </Button>
       </form>
-    </Card>
-  );
-}
-
-type FieldProps = {
-  key?: React.Key;
-  name: string;
-  value: string;
-  onChange: (key: string, value: string) => void;
+    </Card>);
 };
-
-function Field({ name, value, onChange }: FieldProps) {
-  const isLong = longFields.has(name);
-
-  if (name === 'category') {
-    return (
-      <FieldShell name={name}>
+type FieldProps = {
+    key?: React.Key;
+    collection: AdminCollection;
+    name: string;
+    value: string;
+    onChange: (key: string, value: string) => void;
+};
+const Field = ({ collection, name, value, onChange }: FieldProps) => {
+    const { language } = useLanguage();
+    const isLong = longFields.has(name);
+    if (name === 'category') {
+        const options = collection === 'media' ? categoryOptions.media : categoryOptions.news;
+        return (<FieldShell name={name}>
         <select value={value} onChange={(event) => onChange(name, event.target.value)} className="admin-input">
-          <option value="events">Иш-чаралар</option>
-          <option value="laws">Мыйзамдар</option>
-          <option value="projects">Долбоорлор</option>
-          <option value="education">Окутуу</option>
-          <option value="media_news">Медиа жаңылыктар</option>
+          {options.map((option) => (<option key={option.value} value={option.value}>
+              {option.labels[language]}
+            </option>))}
         </select>
-      </FieldShell>
-    );
-  }
-
-  if (name === 'type') {
-    return (
-      <FieldShell name={name}>
+      </FieldShell>);
+    }
+    if (name === 'type') {
+        return (<FieldShell name={name}>
         <select value={value} onChange={(event) => onChange(name, event.target.value)} className="admin-input">
-          <option value="podcast">Подкаст</option>
-          <option value="survey">Сурамжылоо</option>
-          <option value="video">Видео</option>
-          <option value="text">Текст сабак</option>
-          <option value="test">Тест</option>
+          {typeOptions.map((option) => (<option key={option.value} value={option.value}>
+              {option.labels[language]}
+            </option>))}
         </select>
-      </FieldShell>
-    );
-  }
-
-  return (
-    <label className={cn('space-y-2', isLong && 'md:col-span-2')}>
-      <FieldLabel name={name} />
-      {isLong ? (
-        <textarea
-          value={value}
-          onChange={(event) => onChange(name, event.target.value)}
-          rows={4}
-          className="admin-input resize-none font-medium"
-        />
-      ) : (
-        <input value={value} onChange={(event) => onChange(name, event.target.value)} className="admin-input" />
-      )}
-    </label>
-  );
-}
-
-function FieldShell({ name, children }: { name: string; children: React.ReactNode }) {
-  return (
-    <label className="space-y-2">
-      <FieldLabel name={name} />
+      </FieldShell>);
+    }
+    return (<label className={cn('space-y-2', isLong && 'md:col-span-2')}>
+      <FieldLabel name={name}/>
+      {isLong ? (<textarea value={value} onChange={(event) => onChange(name, event.target.value)} rows={4} className="admin-input resize-none font-medium"/>) : (<input value={value} onChange={(event) => onChange(name, event.target.value)} className="admin-input"/>)}
+    </label>);
+};
+const FieldShell = ({ name, children }: {
+    name: string;
+    children: React.ReactNode;
+}) => {
+    return (<label className="space-y-2">
+      <FieldLabel name={name}/>
       {children}
-    </label>
-  );
-}
-
-function FieldLabel({ name }: { name: string }) {
-  return (
-    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
-      {fieldLabels[name] || name}
-    </span>
-  );
-}
+    </label>);
+};
+const FieldLabel = ({ name }: {
+    name: string;
+}) => {
+    const { language } = useLanguage();
+    return <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{fieldLabels[language][name] || name}</span>;
+};

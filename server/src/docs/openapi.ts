@@ -79,6 +79,7 @@ export const openApiSpec = {
         properties: {
           id: { type: 'string' },
           type: { type: 'string', enum: ['podcast', 'survey', 'video'] },
+          category: { type: 'string', enum: ['tech', 'history', 'culture', 'education'] },
           title: { type: 'string' },
           titleRu: { type: 'string' },
           guest: { type: 'string' },
@@ -110,6 +111,23 @@ export const openApiSpec = {
           originalName: { type: 'string' },
           mimetype: { type: 'string' },
           size: { type: 'number' },
+        },
+      },
+      Subscription: {
+        type: 'object',
+        required: ['email'],
+        properties: {
+          email: { type: 'string', example: 'example@mail.com' },
+          source: { type: 'string', example: 'home_subscription' },
+        },
+      },
+      ContactMessage: {
+        type: 'object',
+        required: ['name', 'email', 'message'],
+        properties: {
+          name: { type: 'string' },
+          email: { type: 'string', example: 'example@mail.com' },
+          message: { type: 'string' },
         },
       },
     },
@@ -156,6 +174,22 @@ export const openApiSpec = {
           },
         },
         responses: { '201': { description: 'Uploaded' } },
+      },
+    },
+    '/api/forms/subscriptions': {
+      post: {
+        tags: ['Forms'],
+        summary: 'Create newspaper subscription request',
+        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/Subscription' } } } },
+        responses: { '201': { description: 'Subscription saved' }, '400': { description: 'Invalid payload' } },
+      },
+    },
+    '/api/forms/contact-messages': {
+      post: {
+        tags: ['Forms'],
+        summary: 'Create contact message',
+        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/ContactMessage' } } } },
+        responses: { '201': { description: 'Message saved' }, '400': { description: 'Invalid payload' } },
       },
     },
   },

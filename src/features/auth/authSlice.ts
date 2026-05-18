@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, checkAdminSession } from './authThunk';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { adminLogin as adminLoginThunk, checkAdminSession } from './authThunk';
 import { AuthState } from './types';
 
 const storedToken = localStorage.getItem('adminToken') || '';
@@ -21,20 +21,26 @@ const authSlice = createSlice({
       state.error = null;
       localStorage.removeItem('adminToken');
     },
+    loginWithToken(state, action: PayloadAction<string>) {
+      state.token = action.payload;
+      state.isAuthenticated = true;
+      state.error = null;
+      localStorage.setItem('adminToken', action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(adminLogin.pending, (state) => {
+      .addCase(adminLoginThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(adminLogin.fulfilled, (state, action) => {
+      .addCase(adminLoginThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
         state.isAuthenticated = true;
         localStorage.setItem('adminToken', action.payload.token);
       })
-      .addCase(adminLogin.rejected, (state, action) => {
+      .addCase(adminLoginThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Login failed';
       })
@@ -56,5 +62,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logoutAdmin } = authSlice.actions;
+export const { logoutAdmin, loginWithToken } = authSlice.actions;
 export default authSlice.reducer;

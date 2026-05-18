@@ -1,120 +1,248 @@
-# Kyrgyztil.kg
+# Kyrgyz Tili Web Portal
 
-Веб-портал кыргызского языка с React frontend, Express backend, PostgreSQL, Swagger и админ-панелью.
+Веб-портал кыргызского языка с публичным сайтом, админ-панелью, backend API, PostgreSQL, Swagger-документацией и Firebase Hosting.
 
-## Запуск
+## Что реализовано
 
-Установить зависимости:
+- Главная страница, новости, газета, учебный центр, медиа, подкасты, видео-опросы, языковая политика, партнеры, о проекте и контакты.
+- Двухъязычный интерфейс: кыргызский и русский языки.
+- Админ-панель на `/admin` для управления контентом.
+- CRUD для новостей, газет, медиа и уроков.
+- Загрузка файлов, включая PDF, изображения, аудио и видео.
+- Рабочие формы подписки и обратной связи.
+- YouTube embed-player для видео и отдельный audio-player для подкастов.
+- PostgreSQL для серверных данных.
+- Firebase Hosting и Firestore-синхронизация для hosted-версии.
+- Swagger UI для проверки API.
+
+## Стек
+
+Frontend:
+
+- React 19
+- TypeScript
+- Vite
+- Redux Toolkit
+- Axios
+- React Router
+- Tailwind CSS
+- Lucide React
+
+Backend:
+
+- Node.js
+- Express
+- TypeScript
+- PostgreSQL
+- Multer
+- Swagger UI
+
+Hosting:
+
+- Firebase Hosting
+- Firebase Firestore
+
+## Структура проекта
+
+```txt
+src/
+  components/        # переиспользуемые UI и секции страниц
+  context/           # React context, например LanguageContext
+  features/          # крупные frontend-фичи: admin, auth, forms
+  lib/               # api clients, helpers, media utils
+  modules/           # redux-модули: slice, thunk, types
+  pages/             # route pages
+  routes/            # маршрутизация приложения
+  store/             # redux store
+  translations/      # ky.ts, ru.ts и типы переводов
+
+server/
+  index.ts
+  sql/               # SQL-схема
+  src/
+    app.ts
+    main.ts
+    config/          # env-настройки
+    db/              # PostgreSQL pool, schema, seed data
+    docs/            # Swagger/OpenAPI
+    middlewares/     # error handler, admin guard
+    modules/         # backend-модули: auth, content, forms, uploads
+    shared/          # общие backend helpers
+  uploads/           # загруженные файлы
+
+scripts/
+  syncServerContent.ts
+  syncHostedContent.ts
+  uploadDataClient.ts
+```
+
+## Установка
 
 ```bash
 npm install
 ```
 
-Создать `.env` по примеру `.env.example` и указать PostgreSQL:
+Создайте `.env` на основе `.env.example`.
 
 ```env
 API_PORT=4000
-ADMIN_PASSWORD="admin123"
+ADMIN_PASSWORD="change-me"
 ADMIN_TOKEN="replace-with-long-random-token"
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/kyrgyztil"
+
+VITE_API_URL="http://localhost:4000"
+VITE_ADMIN_TOKEN="change-me"
 ```
 
-Запустить backend:
+Важно: настоящий `.env` нельзя коммитить в GitHub, потому что там хранятся пароли и токены.
+
+## Запуск локально
+
+Backend:
 
 ```bash
 npm run dev:api
 ```
 
-При старте сервер сам создаст таблицы PostgreSQL и добавит временные данные, если таблицы пустые.
-
-Запустить frontend:
+Frontend:
 
 ```bash
 npm run dev
 ```
 
-Frontend: `http://127.0.0.1:3000`
+Адреса:
 
-Backend API: `http://127.0.0.1:4000/api`
+- Frontend: `http://127.0.0.1:3000`
+- Backend API: `http://127.0.0.1:4000/api`
+- Swagger: `http://127.0.0.1:4000/docs`
+- Admin panel: `http://127.0.0.1:3000/admin`
 
-Swagger: `http://127.0.0.1:4000/docs`
+Можно запустить frontend и backend вместе:
 
-Админ-панель: `http://127.0.0.1:3000/admin`
-
-## Backend Architecture
-
-Backend разложен в production-style структуру:
-
-```txt
-server/
-  index.ts
-  sql/
-    schema.sql
-  src/
-    app.ts
-    main.ts
-    config/
-      env.ts
-    db/
-      pool.ts
-      schema.ts
-      seed.ts
-    docs/
-      openapi.ts
-    middlewares/
-      errorHandler.ts
-      requireAdmin.ts
-    modules/
-      auth/
-        auth.routes.ts
-      content/
-        content.config.ts
-        content.repository.ts
-        content.routes.ts
-      health/
-        health.routes.ts
-      lessons/
-        lessons.routes.ts
-      media/
-        media.routes.ts
-      news/
-        news.routes.ts
-      newspapers/
-        newspapers.routes.ts
-      uploads/
-        uploads.routes.ts
-    shared/
-      entity.ts
-  uploads/
+```bash
+npm run dev:all
 ```
-
-Смысл слоев:
-
-- `config` читает env-настройки.
-- `db` отвечает за PostgreSQL, создание таблиц и seed.
-- `modules` содержит бизнес-модули и HTTP routes.
-- `repository` работает с PostgreSQL.
-- `middlewares` содержит общие проверки, например защиту админки.
-- `docs` хранит Swagger/OpenAPI описание.
-- `shared` хранит общие типы и helpers.
-
-## API
-
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-- `GET /api/news`, `POST /api/news`, `PUT /api/news/:id`, `DELETE /api/news/:id`
-- `GET /api/newspapers`, `POST /api/newspapers`, `PUT /api/newspapers/:id`, `DELETE /api/newspapers/:id`
-- `GET /api/media`, `POST /api/media`, `PUT /api/media/:id`, `DELETE /api/media/:id`
-- `GET /api/lessons`, `POST /api/lessons`, `PUT /api/lessons/:id`, `DELETE /api/lessons/:id`
-- `POST /api/uploads`
 
 ## PostgreSQL
 
-Данные хранятся в таблицах PostgreSQL:
+Проект использует PostgreSQL как основную серверную базу данных.
+
+При старте backend:
+
+- создаются нужные таблицы;
+- добавляются начальные данные, если таблицы пустые;
+- API начинает отдавать данные frontend-приложению.
+
+Основные таблицы:
 
 - `news`
 - `newspapers`
 - `media`
 - `lessons`
+- `subscriptions`
+- `contact_messages`
 
-Файлы, например PDF и изображения, хранятся в `server/uploads`, а в PostgreSQL сохраняется ссылка на файл.
+Файлы загружаются в `server/uploads`, а в PostgreSQL сохраняется ссылка на файл.
+
+## Swagger
+
+Swagger доступен по адресу:
+
+```txt
+http://127.0.0.1:4000/docs
+```
+
+Через Swagger можно смотреть и тестировать endpoints API без Postman.
+
+Основные endpoints:
+
+- `POST /api/auth/login`
+- `GET /api/news`
+- `POST /api/news`
+- `PUT /api/news/:id`
+- `DELETE /api/news/:id`
+- `GET /api/newspapers`
+- `POST /api/newspapers`
+- `GET /api/media`
+- `POST /api/media`
+- `GET /api/lessons`
+- `POST /api/lessons`
+- `POST /api/uploads`
+- `POST /api/forms/subscriptions`
+- `POST /api/forms/contact-messages`
+
+## Админ-панель
+
+Админ-панель находится по адресу:
+
+```txt
+/admin
+```
+
+В ней можно:
+
+- добавлять и редактировать новости;
+- добавлять газеты и PDF;
+- добавлять видео, подкасты и медиа;
+- добавлять уроки;
+- загружать файлы;
+- менять данные, которые отображаются на сайте.
+
+Для защиты используется admin token/password из `.env`. В реальном production-проекте лучше подключить полноценную авторизацию: JWT, refresh tokens, роли пользователей и хранение токенов в httpOnly cookies.
+
+## Firebase Hosting
+
+Production-сборка:
+
+```bash
+npm run build
+```
+
+Деплой на Firebase Hosting:
+
+```bash
+npx firebase deploy --only hosting
+```
+
+Hosted-версия может брать данные из Firestore. Для синхронизации контента есть scripts:
+
+```bash
+npm run sync:hosting
+npm run sync:server
+```
+
+## Проверка проекта
+
+TypeScript-проверка:
+
+```bash
+npm run lint
+```
+
+Production build:
+
+```bash
+npm run build
+```
+
+## Возможные названия второго коммита
+
+Лучший вариант:
+
+```txt
+feat: add backend, admin panel and content management
+```
+
+Другие хорошие варианты:
+
+```txt
+feat: implement full-stack portal with admin dashboard
+feat: connect frontend to API and add admin content editor
+feat: add PostgreSQL backend, Swagger docs and Firebase hosting flow
+```
+
+Если коммит включает еще и рефакторинг архитектуры:
+
+```txt
+feat: add backend, admin panel and clean project architecture
+```

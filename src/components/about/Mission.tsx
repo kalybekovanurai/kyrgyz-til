@@ -55,9 +55,13 @@ export const Mission = () => {
            viewport={{ once: true }}
            className="relative"
         >
-           <div className="aspect-[4/5] rounded-[3rem] md:rounded-[4rem] overflow-hidden shadow-2xl relative z-10 border border-gray-100">
-              <img src="https://images.unsplash.com/photo-1523240715632-d984bb4b990a?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover" alt="About" />
-              <div className="absolute inset-0 bg-brand-primary/5 mix-blend-multiply" />
+           <div className="aspect-[4/5] rounded-[3rem] md:rounded-[4rem] overflow-hidden shadow-2xl relative z-10 border border-gray-100 bg-slate-100">
+              <img 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrBRsK4QoIlpL52j2CV6BWjytpADMk7Y2hLg&s" 
+                className="w-full h-full object-cover" 
+                alt="About Portal" 
+                loading="lazy"
+              />
            </div>
            <div className="absolute -top-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-brand-primary/10 rounded-full blur-[80px] md:blur-[100px]" />
         </motion.div>

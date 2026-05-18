@@ -1,7 +1,6 @@
-import { query } from './pool';
-
-export async function initDatabase() {
-  await query(`
+﻿import { query } from './pool';
+export const initDatabase = async () => {
+    await query(`
     CREATE TABLE IF NOT EXISTS news (
       id TEXT PRIMARY KEY,
       title TEXT NOT NULL,
@@ -28,6 +27,7 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS media (
       id TEXT PRIMARY KEY,
       type TEXT NOT NULL,
+      category TEXT,
       title TEXT NOT NULL,
       title_ru TEXT,
       guest TEXT,
@@ -52,5 +52,21 @@ export async function initDatabase() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id TEXT PRIMARY KEY,
+      email TEXT NOT NULL,
+      source TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   `);
-}
+    await query(`ALTER TABLE media ADD COLUMN IF NOT EXISTS category TEXT;`);
+};

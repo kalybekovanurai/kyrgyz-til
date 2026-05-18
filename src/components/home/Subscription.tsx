@@ -1,7 +1,7 @@
-import React from 'react';
-import { MessageSquare, FileText, Send } from 'lucide-react';
-import { Container, Button } from '../ui';
+import { MessageSquare, FileText } from 'lucide-react';
+import { Container } from '../ui';
 import { useLanguage } from '@/src/context/LanguageContext';
+import { SubscriptionForm } from '@/src/features/forms/components/SubscriptionForm';
 
 export const Subscription = () => {
   const { t } = useLanguage();
@@ -26,19 +26,7 @@ export const Subscription = () => {
                  <span className="text-[10px] md:text-[11px] font-black text-gray-400 tracking-widest uppercase">{t('sub.safe')}</span>
               </div>
             </div>
-            <form className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">{t('sub.email_label')}</label>
-                <input 
-                  type="email" 
-                  placeholder="example@mail.com" 
-                  className="w-full px-6 md:px-8 py-4 md:py-5 bg-white border border-gray-200 rounded-2xl focus:border-brand-primary outline-none transition-all font-bold text-sm shadow-sm"
-                />
-              </div>
-              <Button className="w-full h-[60px] md:h-[70px] rounded-2xl" icon={Send}>
-                {t('sub.btn')}
-              </Button>
-            </form>
+            <SubscriptionForm />
           </div>
           <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-primary/5 rounded-full blur-3xl" />
         </div>

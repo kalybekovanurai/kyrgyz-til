@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS newspapers (
 CREATE TABLE IF NOT EXISTS media (
   id TEXT PRIMARY KEY,
   type TEXT NOT NULL,
+  category TEXT,
   title TEXT NOT NULL,
   title_ru TEXT,
   guest TEXT,
@@ -47,4 +48,19 @@ CREATE TABLE IF NOT EXISTS lessons (
   video_url TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS subscriptions (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL,
+  source TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

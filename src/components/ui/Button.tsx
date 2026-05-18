@@ -40,7 +40,7 @@ export const Button = ({
   return (
     <button
       className={cn(
-        'inline-flex min-h-11 items-center justify-center gap-2 sm:gap-3 font-black uppercase tracking-[0.12em] sm:tracking-widest leading-tight text-center transition-all rounded-md disabled:opacity-50 disabled:cursor-not-allowed',
+        'inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 sm:gap-3 font-black uppercase tracking-[0.12em] sm:tracking-widest leading-tight text-center transition-all rounded-md disabled:cursor-not-allowed disabled:opacity-50',
         variants[variant],
         sizes[size],
         className
