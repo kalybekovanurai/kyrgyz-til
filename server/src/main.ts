@@ -10,12 +10,17 @@ import { createApp } from './app';
 
 await ensureUploadDir();
 if (env.databaseUrl) {
-  const { initDatabase } = await import('./db/schema');
-  const { seedData } = await import('./db/seed');
-  await initDatabase();
-  await seedData();
+  try {
+    const { initDatabase } = await import('./db/schema');
+    const { seedData } = await import('./db/seed');
+    await initDatabase();
+    await seedData();
+  }
+  catch (error) {
+    console.warn('Database initialization failed; continuing without DB. Admin auth and uploads will still work.');
+    console.warn(error);
+  }
 } else {
-  console.log('Current DATABASE_URL:', env.databaseUrl ? '[REDACTED]' : '<EMPTY>');
   console.log('DATABASE_URL not configured — skipping database initialization and seeding.');
 }
 
