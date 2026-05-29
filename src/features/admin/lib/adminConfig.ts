@@ -71,7 +71,7 @@ export const fieldLabels: Record<AdminLanguage, Record<string, string>> = {
     description: 'Кыскача маалымат',
     descriptionRu: 'Сүрөттөмө RU',
     url: 'Медиа URL',
-    thumbnail: 'Thumbnail URL',
+    thumbnail: 'Миниатюра URL',
     videoUrl: 'Видео URL',
   },
   ru: {
@@ -91,7 +91,7 @@ export const fieldLabels: Record<AdminLanguage, Record<string, string>> = {
     description: 'Краткое описание',
     descriptionRu: 'Описание RU',
     url: 'Медиа URL',
-    thumbnail: 'Thumbnail URL',
+    thumbnail: 'URL миниатюры',
     videoUrl: 'Видео URL',
   },
 };
