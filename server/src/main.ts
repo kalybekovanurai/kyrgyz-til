@@ -1,4 +1,5 @@
 import { env } from './config/env';
+console.log('Startup: DATABASE_URL present?', Boolean(env.databaseUrl));
 // DB modules are imported dynamically below to avoid connecting on startup when DATABASE_URL is not set
 import { ensureUploadDir } from './shared/entity';
 import { createApp } from './app';
