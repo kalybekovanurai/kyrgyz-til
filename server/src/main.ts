@@ -9,6 +9,7 @@ if (env.databaseUrl) {
   await initDatabase();
   await seedData();
 } else {
+  console.log('Current DATABASE_URL:', env.databaseUrl ? '[REDACTED]' : '<EMPTY>');
   console.log('DATABASE_URL not configured — skipping database initialization and seeding.');
 }
 
