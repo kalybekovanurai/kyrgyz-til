@@ -6,14 +6,14 @@ type AdminTokenCardProps = {
 };
 const text = {
     ky: {
-        title: 'Admin access',
-        description: 'Панель көрүнүп турат, бирок өзгөртүү, өчүрүү жана файл жүктөө backend token аркылуу гана иштейт.',
-        logout: 'Чыгуу',
+      title: 'Админ кирүү',
+      description: 'Панель көрүнүп турат, бирок өзгөртүү, өчүрүү жана файл жүктөө backend token аркылуу гана иштейт.',
+      logout: 'Чыгуу',
     },
     ru: {
-        title: 'Admin access',
-        description: 'Панель доступна, но изменение, удаление и загрузка файлов работают только через backend token.',
-        logout: 'Выйти',
+      title: 'Доступ администратора',
+      description: 'Панель доступна, но изменение, удаление и загрузка файлов работают только через backend token.',
+      logout: 'Выйти',
     },
 };
 export const AdminTokenCard = ({ onLogout }: AdminTokenCardProps) => {
