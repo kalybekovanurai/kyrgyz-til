@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "upload-data": "tsx scripts/uploadDataClient.ts",
+    "upload:storage": "tsx scripts/uploadToFirebaseStorage.ts",
     "sync:server": "tsx scripts/syncServerContent.ts",
     "sync:hosting": "tsx scripts/syncHostedContent.ts",
     "lint": "tsc --noEmit"
