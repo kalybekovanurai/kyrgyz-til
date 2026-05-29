@@ -5,8 +5,12 @@ import { ensureUploadDir } from './shared/entity';
 import { createApp } from './app';
 
 await ensureUploadDir();
-await initDatabase();
-await seedData();
+if (env.databaseUrl) {
+  await initDatabase();
+  await seedData();
+} else {
+  console.log('DATABASE_URL not configured — skipping database initialization and seeding.');
+}
 
 const app = createApp();
 
