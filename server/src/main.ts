@@ -1,11 +1,12 @@
 import { env } from './config/env';
-import { initDatabase } from './db/schema';
-import { seedData } from './db/seed';
+// DB modules are imported dynamically below to avoid connecting on startup when DATABASE_URL is not set
 import { ensureUploadDir } from './shared/entity';
 import { createApp } from './app';
 
 await ensureUploadDir();
 if (env.databaseUrl) {
+  const { initDatabase } = await import('./db/schema');
+  const { seedData } = await import('./db/seed');
   await initDatabase();
   await seedData();
 } else {
