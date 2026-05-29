@@ -2,8 +2,12 @@
 import { Lesson, MediaItem, NewsItem, NewspaperIssue } from '@/src/types';
 import { db } from './firebase';
 import { collection, getDocs, getDoc, doc, query, orderBy } from 'firebase/firestore';
+const envUrl = import.meta.env.VITE_API_URL?.trim();
+const isLocalhostUrl = envUrl && /^(https?:\/\/)?(localhost|127\.0\.0\.1)(:\d+)?\/?$/i.test(envUrl);
+const baseURL = envUrl && !(import.meta.env.DEV && isLocalhostUrl) ? envUrl : undefined;
+
 export const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? window.location.origin : 'http://localhost:4000'),
+    baseURL,
     headers: {
         'Content-Type': 'application/json',
     },

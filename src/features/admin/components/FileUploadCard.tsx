@@ -30,6 +30,7 @@ export const FileUploadCard = ({ uploadedUrl, onUpload }: FileUploadCardProps) =
     const [file, setFile] = React.useState<File | null>(null);
     const [isUploading, setIsUploading] = React.useState(false);
     const [copied, setCopied] = React.useState(false);
+    const fileInputRef = React.useRef<HTMLInputElement | null>(null);
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!file)
@@ -53,8 +54,28 @@ export const FileUploadCard = ({ uploadedUrl, onUpload }: FileUploadCardProps) =
       <h2 className="text-sm font-black uppercase text-brand-primary">{copy.title}</h2>
       <p className="text-xs font-semibold leading-relaxed text-gray-400">{copy.description}</p>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.mp3,.wav,.ogg,.m4a,.mp4,application/pdf,image/*,audio/*,video/*" onChange={(event) => setFile(event.target.files?.[0] || null)} className="block w-full text-xs text-gray-500 file:mr-3 file:rounded-lg file:border-0 file:bg-brand-primary file:px-4 file:py-2 file:text-xs file:font-black file:uppercase file:text-white"/>
-        <Button type="submit" size="sm" icon={FileUp} className="w-full" disabled={!file || isUploading}>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.webp,.mp3,.wav,.ogg,.m4a,.mp4,application/pdf,image/*,audio/*,video/*"
+          onChange={(event) => setFile(event.target.files?.[0] || null)}
+          className="sr-only"
+        />
+        <div className="space-y-2">
+          <Button
+            type="button"
+            size="sm"
+            icon={FileUp}
+            className="w-full"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {copy.upload}
+          </Button>
+          {file ? (
+            <p className="text-xs text-gray-500">{file.name}</p>
+          ) : null}
+        </div>
+        <Button type="submit" size="sm" className="w-full" disabled={!file || isUploading}>
           {isUploading ? copy.uploading : copy.upload}
         </Button>
       </form>
