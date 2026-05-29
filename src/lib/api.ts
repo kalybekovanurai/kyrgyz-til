@@ -3,7 +3,7 @@ import { Lesson, MediaItem, NewsItem, NewspaperIssue } from '@/src/types';
 import { db } from './firebase';
 import { collection, getDocs, getDoc, doc, query, orderBy } from 'firebase/firestore';
 export const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:4000'),
+    baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? window.location.origin : 'http://localhost:4000'),
     headers: {
         'Content-Type': 'application/json',
     },
