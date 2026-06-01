@@ -33,7 +33,11 @@ export const Hero = ({ items }: HeroProps) => {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="absolute inset-0"
             >
-              <img src={item.image} className="w-full h-full object-cover" alt="" />
+              <img
+                src={item.image}
+                className="w-full h-full object-cover"
+                alt={item.title || 'Hero slide image'}
+              />
               <div className="absolute inset-0 bg-brand-primary/10 mix-blend-multiply" />
             </motion.div>
           ))}
@@ -77,11 +81,14 @@ export const Hero = ({ items }: HeroProps) => {
               </AnimatePresence>
             ))}
             
-            <div className="flex gap-2 mt-8 sm:mt-12">
+            <div className="flex gap-2 mt-8 sm:mt-12" role="tablist" aria-label={t('hero.slides_controls_label') || 'Hero slides'}>
               {items.map((_, idx) => (
-                <button 
+                <button
                   key={idx}
-                  onClick={() => setActiveHero(idx)} 
+                  type="button"
+                  onClick={() => setActiveHero(idx)}
+                  aria-label={`${t('hero.show_slide') || 'Show slide'} ${idx + 1}`}
+                  aria-current={activeHero === idx ? 'true' : undefined}
                   className={cn(
                     "h-1.5 transition-all rounded-full",
                     activeHero === idx ? "w-12 bg-brand-primary" : "w-4 bg-gray-200"
