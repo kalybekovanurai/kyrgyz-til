@@ -42,6 +42,7 @@ export const ru = {
         'about.activities.3': 'Учебно-методическая работа',
         'about.activities.4': 'Общественные мероприятия',
         'learning.hero.desc': 'Материалы для изучения государственного языка с использованием современных технологий',
+        'learning.hero.subtitle': 'Материалы для изучения кыргызского языка',
         'learning.lessons.title': 'Уроки',
         'learning.lessons.text.title': 'Текст',
         'learning.lessons.text.desc': 'Статьи, художественные тексты и грамматические объяснения.',

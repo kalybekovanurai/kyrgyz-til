@@ -1,5 +1,5 @@
 ﻿import axios from 'axios';
-import { Lesson, MediaItem, NewsItem, NewspaperIssue } from '@/src/types';
+import { Lesson, MediaItem, NewsItem, NewspaperIssue, SiteSettings } from '@/src/types';
 import { db } from './firebase';
 import { collection, getDocs, getDoc, doc, query, orderBy } from 'firebase/firestore';
 const envUrl = import.meta.env.VITE_API_URL?.trim();
@@ -23,15 +23,21 @@ const mapDocs = <T>(snapshot: any): T[] => {
         ...doc.data(),
     })) as T[];
 };
+const getFirestoreList = async <T>(collectionName: string): Promise<T[]> => {
+    const snapshot = await getDocs(collection(db, collectionName));
+    return mapDocs<T>(snapshot);
+};
+const getFirestoreItem = async <T>(collectionName: string, id: string): Promise<T | null> => {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? ({ id: docSnap.id, ...docSnap.data() } as T) : null;
+};
 export const api = {
     news: async (): Promise<NewsItem[]> => {
         try {
-            if (import.meta.env.PROD) {
-                const q = query(collection(db, 'news'), orderBy('date', 'desc'));
-                const snapshot = await getDocs(q);
-                return mapDocs<NewsItem>(snapshot);
-            }
-            return apiGet<NewsItem[]>('/api/news');
+            const q = query(collection(db, 'news'), orderBy('date', 'desc'));
+            const snapshot = await getDocs(q);
+            return mapDocs<NewsItem>(snapshot);
         }
         catch (error) {
             console.error('Error fetching news:', error);
@@ -40,15 +46,7 @@ export const api = {
     },
     newsItem: async (id: string): Promise<NewsItem | null> => {
         try {
-            if (import.meta.env.PROD) {
-                const docRef = doc(db, 'news', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    return { id: docSnap.id, ...docSnap.data() } as NewsItem;
-                }
-                return null;
-            }
-            return apiGet<NewsItem>(`/api/news/${id}`);
+            return getFirestoreItem<NewsItem>('news', id);
         }
         catch (error) {
             console.error(`Error fetching news item ${id}:`, error);
@@ -57,11 +55,7 @@ export const api = {
     },
     newspapers: async (): Promise<NewspaperIssue[]> => {
         try {
-            if (import.meta.env.PROD) {
-                const snapshot = await getDocs(collection(db, 'newspapers'));
-                return mapDocs<NewspaperIssue>(snapshot);
-            }
-            return apiGet<NewspaperIssue[]>('/api/newspapers');
+            return getFirestoreList<NewspaperIssue>('newspapers');
         }
         catch (error) {
             console.error('Error fetching newspapers:', error);
@@ -70,11 +64,7 @@ export const api = {
     },
     media: async (): Promise<MediaItem[]> => {
         try {
-            if (import.meta.env.PROD) {
-                const snapshot = await getDocs(collection(db, 'media'));
-                return mapDocs<MediaItem>(snapshot);
-            }
-            return apiGet<MediaItem[]>('/api/media');
+            return getFirestoreList<MediaItem>('media');
         }
         catch (error) {
             console.error('Error fetching media:', error);
@@ -83,15 +73,7 @@ export const api = {
     },
     mediaItem: async (id: string): Promise<MediaItem | null> => {
         try {
-            if (import.meta.env.PROD) {
-                const docRef = doc(db, 'media', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    return { id: docSnap.id, ...docSnap.data() } as MediaItem;
-                }
-                return null;
-            }
-            return apiGet<MediaItem>(`/api/media/${id}`);
+            return getFirestoreItem<MediaItem>('media', id);
         }
         catch (error) {
             console.error(`Error fetching media item ${id}:`, error);
@@ -100,11 +82,7 @@ export const api = {
     },
     lessons: async (): Promise<Lesson[]> => {
         try {
-            if (import.meta.env.PROD) {
-                const snapshot = await getDocs(collection(db, 'lessons'));
-                return mapDocs<Lesson>(snapshot);
-            }
-            return apiGet<Lesson[]>('/api/lessons');
+            return getFirestoreList<Lesson>('lessons');
         }
         catch (error) {
             console.error('Error fetching lessons:', error);
@@ -113,18 +91,28 @@ export const api = {
     },
     lessonItem: async (id: string): Promise<Lesson | null> => {
         try {
-            if (import.meta.env.PROD) {
-                const docRef = doc(db, 'lessons', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    return { id: docSnap.id, ...docSnap.data() } as Lesson;
-                }
-                return null;
-            }
-            return apiGet<Lesson>(`/api/lessons/${id}`);
+            return getFirestoreItem<Lesson>('lessons', id);
         }
         catch (error) {
             console.error(`Error fetching lesson item ${id}:`, error);
+            return null;
+        }
+    },
+    siteSettings: async (): Promise<SiteSettings[]> => {
+        try {
+            return getFirestoreList<SiteSettings>('siteSettings');
+        }
+        catch (error) {
+            console.error('Error fetching site settings:', error);
+            return [];
+        }
+    },
+    siteSettingsItem: async (id: string): Promise<SiteSettings | null> => {
+        try {
+            return getFirestoreItem<SiteSettings>('siteSettings', id);
+        }
+        catch (error) {
+            console.error(`Error fetching site settings ${id}:`, error);
             return null;
         }
     },

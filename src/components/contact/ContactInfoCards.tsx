@@ -1,12 +1,19 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { Card } from '@/src/components/ui';
 import { useLanguage } from '@/src/context/LanguageContext';
+import { useSiteSettings } from '@/src/features/siteSettings/useSiteSettings';
 export const ContactInfoCards = () => {
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
+    const { data } = useSiteSettings<{
+        phone?: string;
+        email?: string;
+        addressKy?: string;
+        addressRu?: string;
+    }>('contacts');
     const items = [
-        { icon: Phone, label: t('contact.phone'), value: '+996 (312) 66-00-00' },
-        { icon: Mail, label: t('contact.email'), value: 'info@kyrgyztil.kg' },
-        { icon: MapPin, label: t('contact.address'), value: t('footer.address_value') },
+        { icon: Phone, label: t('contact.phone'), value: data.phone || '+996 (312) 66-00-00' },
+        { icon: Mail, label: t('contact.email'), value: data.email || 'info@kyrgyztil.kg' },
+        { icon: MapPin, label: t('contact.address'), value: language === 'ky' ? data.addressKy || t('footer.address_value') : data.addressRu || data.addressKy || t('footer.address_value') },
     ];
     return (<div className="space-y-4 md:space-y-6">
       {items.map((item) => (<Card key={item.label} className="group flex items-center gap-6 p-6 hover:border-brand-primary md:p-8" hoverEffect>

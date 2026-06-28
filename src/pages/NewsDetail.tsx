@@ -1,10 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, ArrowLeft, Share2, Facebook, Twitter, MessageSquare } from 'lucide-react';
+import { Calendar, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/src/context/LanguageContext';
 import { fetchNews, fetchNewsItem } from '@/src/modules/news/newsThunk';
 import { clearSelectedNews } from '@/src/modules/news/newsSlice';
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
+import { ShareButton } from '@/src/components/share/ShareButton';
 const NewsDetail = () => {
     const { id } = useParams();
     const { language, t } = useLanguage();
@@ -61,15 +62,8 @@ const NewsDetail = () => {
             <div className="mt-16 pt-12 border-t border-gray-100 flex flex-wrap items-center justify-between gap-8">
               <div className="flex items-center gap-4">
                 <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t('common.share')}</span>
-                <div className="flex gap-2">
-                  {[Facebook, Twitter, MessageSquare].map((Icon, i) => (<button key={i} className="cursor-pointer p-3 bg-slate-50 text-brand-primary rounded-xl hover:bg-brand-primary hover:text-white transition-all">
-                      <Icon className="w-5 h-5"/>
-                    </button>))}
-                </div>
+                <ShareButton title={title} text={content} label={t('common.share')} />
               </div>
-              <button className="cursor-pointer flex items-center gap-2 text-[10px] font-black text-brand-primary uppercase tracking-widest hover:translate-x-1 transition-transform">
-                {t('common.send_suggestion')} <Share2 className="w-4 h-4"/>
-              </button>
             </div>
           </div>
 

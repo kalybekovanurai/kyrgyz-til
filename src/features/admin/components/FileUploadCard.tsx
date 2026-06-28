@@ -31,13 +31,14 @@ export const FileUploadCard = ({ uploadedUrl, onUpload }: FileUploadCardProps) =
     const [isUploading, setIsUploading] = React.useState(false);
     const [copied, setCopied] = React.useState(false);
     const fileInputRef = React.useRef<HTMLInputElement | null>(null);
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        if (!file)
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const nextFile = event.target.files?.[0] || null;
+        setFile(nextFile);
+        if (!nextFile)
             return;
         setIsUploading(true);
         try {
-            await onUpload(file);
+            await onUpload(nextFile);
         }
         finally {
             setIsUploading(false);
@@ -53,12 +54,12 @@ export const FileUploadCard = ({ uploadedUrl, onUpload }: FileUploadCardProps) =
     return (<Card className="space-y-4">
       <h2 className="text-sm font-black uppercase text-brand-primary">{copy.title}</h2>
       <p className="text-xs font-semibold leading-relaxed text-gray-400">{copy.description}</p>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-4">
         <input
           ref={fileInputRef}
           type="file"
           accept=".pdf,.jpg,.jpeg,.png,.webp,.mp3,.wav,.ogg,.m4a,.mp4,application/pdf,image/*,audio/*,video/*"
-          onChange={(event) => setFile(event.target.files?.[0] || null)}
+          onChange={handleFileChange}
           className="sr-only"
         />
         <div className="space-y-2">
@@ -68,17 +69,15 @@ export const FileUploadCard = ({ uploadedUrl, onUpload }: FileUploadCardProps) =
             icon={FileUp}
             className="w-full"
             onClick={() => fileInputRef.current?.click()}
+            disabled={isUploading}
           >
-            {copy.upload}
+            {isUploading ? copy.uploading : copy.upload}
           </Button>
           {file ? (
             <p className="text-xs text-gray-500">{file.name}</p>
           ) : null}
         </div>
-        <Button type="submit" size="sm" className="w-full" disabled={!file || isUploading}>
-          {isUploading ? copy.uploading : copy.upload}
-        </Button>
-      </form>
+      </div>
       {uploadedUrl && (<div className="space-y-3 rounded-xl bg-slate-50 p-3">
           <p className="break-all text-xs font-bold text-gray-500">{uploadedUrl}</p>
           <button type="button" onClick={copyUrl} className="cursor-pointer inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-primary">

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Play, Mic, Share2, Calendar, User } from 'lucide-react';
+import { Play, Mic, Calendar, User } from 'lucide-react';
 import { fetchMedia } from '@/src/modules/media/mediaThunk';
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
 import { motion } from 'motion/react';
 import { useLanguage } from '@/src/context/LanguageContext';
 import { Link } from 'react-router-dom';
+import { ShareButton } from '@/src/components/share/ShareButton';
 const MediaPodcast = () => {
     const { language, t } = useLanguage();
     const dispatch = useAppDispatch();
@@ -71,9 +72,12 @@ const MediaPodcast = () => {
                   <Link to={`/media/podcast/${item.id}`} className="cursor-pointer text-[10px] font-black uppercase tracking-widest text-brand-primary flex items-center gap-2 group-hover:translate-x-1 transition-transform">
                     {t('common.listen')} <Mic className="w-4 h-4 ml-1"/>
                   </Link>
-                  <button className="cursor-pointer p-2 text-gray-400 hover:text-brand-primary transition-colors">
-                    <Share2 className="w-4 h-4"/>
-                  </button>
+                  <ShareButton
+                    title={language === 'ky' ? item.title : (item.titleRu || item.title)}
+                    text={language === 'ky' ? item.description : (item.descriptionRu || item.description)}
+                    url={`${window.location.origin}/media/podcast/${item.id}`}
+                    iconOnly
+                  />
                 </div>
               </div>
             </motion.div>))}

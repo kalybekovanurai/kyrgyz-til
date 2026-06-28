@@ -1,9 +1,17 @@
 import { ShieldCheck, FileText, Scale } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLanguage } from '@/src/context/LanguageContext';
+import { useSiteSettings } from '@/src/features/siteSettings/useSiteSettings';
 import { Link } from 'react-router-dom';
 const LanguagePolicy = () => {
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
+    const { data } = useSiteSettings<{
+        lawUrl?: string;
+        programUrl?: string;
+        adsItemsKy?: string[];
+        adsItemsRu?: string[];
+    }>('language-policy');
+    const adsItems = language === 'ky' ? data.adsItemsKy || [] : data.adsItemsRu || data.adsItemsKy || [];
     return (<div className="flex flex-col w-full min-h-screen bg-slate-50">
       <section className="bg-white border-b border-gray-100 py-20">
         <div className="container mx-auto px-6 md:px-12">
@@ -44,7 +52,7 @@ const LanguagePolicy = () => {
                 {t('policy.ads.desc')}
               </p>
               <ul className="space-y-4">
-                {['Талкуулоо', 'Каталарды оңдоо', 'Нормативдер', 'Сунуштар'].map(item => (<li key={item} className="flex items-center gap-3 text-[11px] font-black uppercase text-brand-primary tracking-widest">
+                {adsItems.map(item => (<li key={item} className="flex items-center gap-3 text-[11px] font-black uppercase text-brand-primary tracking-widest">
                     <div className="w-1.5 h-1.5 bg-brand-primary rounded-full"/> {item}
                   </li>))}
               </ul>
@@ -60,12 +68,12 @@ const LanguagePolicy = () => {
                   {t('policy.laws.desc')}
                 </p>
                 <div className="space-y-4">
-                  <a href="http://cbd.minjust.gov.kg/act/view/ru-ru/111956" target="_blank" rel="noreferrer" className="cursor-pointer w-full py-4 bg-white text-brand-primary text-[10px] font-black uppercase tracking-widest hover:bg-brand-ink hover:text-white transition-all rounded-sm flex items-center justify-center">
+                  <a href={data.lawUrl || 'http://cbd.minjust.gov.kg/act/view/ru-ru/111956'} target="_blank" rel="noreferrer" className="cursor-pointer w-full py-4 bg-white text-brand-primary text-[10px] font-black uppercase tracking-widest hover:bg-brand-ink hover:text-white transition-all rounded-sm flex items-center justify-center">
                     {t('policy.laws.btn')}
                   </a>
-                  <button className="cursor-pointer w-full py-4 bg-white/10 text-white text-[10px] font-black uppercase tracking-widest border border-white/20 hover:bg-white/20 transition-all rounded-sm">
+                  <a href={data.programUrl || '#'} className="cursor-pointer w-full py-4 bg-white/10 text-white text-[10px] font-black uppercase tracking-widest border border-white/20 hover:bg-white/20 transition-all rounded-sm flex items-center justify-center">
                     {t('policy.laws.prog')}
-                  </button>
+                  </a>
                 </div>
               </div>
               <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-3xl"/>
