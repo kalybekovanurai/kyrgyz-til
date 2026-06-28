@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Share2, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import { DetailHero, PodcastAudioCard, RelatedLinks } from '@/src/components/details';
+import { ShareButton } from '@/src/components/share/ShareButton';
 import { useLanguage } from '@/src/context/LanguageContext';
 import { isAudioUrl } from '@/src/lib/mediaPlayer';
 import { clearSelectedMedia } from '@/src/modules/media/mediaSlice';
@@ -74,9 +75,12 @@ const PodcastDetail = () => {
             <div className="lg:col-span-4">
               <div className="space-y-8">
                 <RelatedLinks title={t('common.other_episodes')} items={relatedPodcasts} getPath={(itemId) => `/media/podcast/${itemId}`}/>
-                <button className="cursor-pointer mt-8 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-primary">
-                  <Share2 className="h-4 w-4"/> {t('common.share')}
-                </button>
+                <ShareButton
+                  title={title}
+                  text={description}
+                  label={t('common.share')}
+                  className="cursor-pointer mt-8 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-primary"
+                />
               </div>
             </div>
           </div>

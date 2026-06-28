@@ -1,4 +1,4 @@
-export type CollectionName = 'news' | 'newspapers' | 'media' | 'lessons';
+export type CollectionName = 'news' | 'newspapers' | 'media' | 'lessons' | 'site-settings';
 export type FieldMap = Record<string, string>;
 export type CollectionConfig = {
     table: string;
@@ -56,6 +56,15 @@ export const contentCollections: Record<CollectionName, CollectionConfig> = {
             content: 'content',
             contentRu: 'content_ru',
             videoUrl: 'video_url',
+        },
+    },
+    'site-settings': {
+        table: 'site_settings',
+        prefix: 'settings',
+        fields: {
+            title: 'title',
+            titleRu: 'title_ru',
+            data: 'data',
         },
     },
 };

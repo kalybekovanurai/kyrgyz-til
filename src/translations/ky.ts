@@ -42,6 +42,7 @@ export const ky = {
         'about.activities.3': 'Окутуу-методикалык иштер',
         'about.activities.4': 'Коомдук иш-чаралар',
         'learning.hero.desc': 'Мамлекеттик тилди заманбап технологиялар менен үйрөнүүгө багытталган материалдар',
+        'learning.hero.subtitle': 'Кыргыз тилин үйрөнүүгө арналган материалдар',
         'learning.lessons.title': 'Сабактар',
         'learning.lessons.text.title': 'Текст',
         'learning.lessons.text.desc': 'Макалалар, адабий тексттер жана грамматикалык түшүндүрмөлөр топтому.',
