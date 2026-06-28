@@ -1,4 +1,5 @@
 export type AdminCollection = 'news' | 'newspapers' | 'media' | 'lessons';
+export type HostedCollection = AdminCollection | 'siteSettings';
 
 export type AdminItem = {
   id: string;

@@ -67,6 +67,15 @@ export const initDatabase = async () => {
       message TEXT NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS site_settings (
+      id TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      title_ru TEXT,
+      data JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   `);
     await query(`ALTER TABLE media ADD COLUMN IF NOT EXISTS category TEXT;`);
 };

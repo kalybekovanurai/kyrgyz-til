@@ -11,6 +11,7 @@ import { lessonsRouter } from './modules/lessons/lessons.routes';
 import { mediaRouter } from './modules/media/media.routes';
 import { newsRouter } from './modules/news/news.routes';
 import { newspapersRouter } from './modules/newspapers/newspapers.routes';
+import { siteSettingsRouter } from './modules/siteSettings/siteSettings.routes';
 import { uploadsRouter } from './modules/uploads/uploads.routes';
 export const createApp = () => {
     const app = express();
@@ -26,6 +27,7 @@ export const createApp = () => {
     app.use('/api/newspapers', newspapersRouter);
     app.use('/api/media', mediaRouter);
     app.use('/api/lessons', lessonsRouter);
+    app.use('/api/site-settings', siteSettingsRouter);
     app.use('/api/uploads', uploadsRouter);
     app.use(errorHandler);
     return app;

@@ -49,3 +49,10 @@ export interface Lesson {
   contentRu?: string;
   videoUrl?: string;
 }
+
+export interface SiteSettings {
+  id: string;
+  title: string;
+  titleRu?: string;
+  data: Record<string, unknown>;
+}

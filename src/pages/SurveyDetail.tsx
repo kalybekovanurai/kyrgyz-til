@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { MessageSquare, Quote } from "lucide-react";
 import { DetailHero, RelatedLinks, VideoEmbed } from "@/src/components/details";
+import { ShareButton } from "@/src/components/share/ShareButton";
 import { useLanguage } from "@/src/context/LanguageContext";
 import { fetchMedia, fetchMediaItem } from "@/src/modules/media/mediaThunk";
 import { clearSelectedMedia } from "@/src/modules/media/mediaSlice";
@@ -125,7 +126,15 @@ const SurveyDetail = () => {
 
             {/* RIGHT */}
             <div className="lg:col-span-4">
-              <RelatedLinks title={t("common.other_surveys")} items={relatedSurveys} getPath={(itemId) => `/media/survey/${itemId}`}/>
+              <div className="space-y-8">
+                <RelatedLinks title={t("common.other_surveys")} items={relatedSurveys} getPath={(itemId) => `/media/survey/${itemId}`}/>
+                <ShareButton
+                  title={title}
+                  text={description}
+                  label={t("common.share")}
+                  className="cursor-pointer inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-primary"
+                />
+              </div>
             </div>
           </div>
         </div>

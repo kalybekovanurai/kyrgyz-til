@@ -1,248 +1,218 @@
-# Kyrgyz Tili Web Portal
+# Kyrgyz Tili — веб-портал кыргызского языка
 
-Веб-портал кыргызского языка с публичным сайтом, админ-панелью, backend API, PostgreSQL, Swagger-документацией и Firebase Hosting.
+Многостраничный веб-портал для материалов о кыргызском языке: новости, газета, учебный центр, медиа, подкасты, видео-опросы, партнеры, контакты и CMS-админка для управления контентом.
 
-## Что реализовано
+Проект сделан как полноценное frontend-приложение для портфолио: данные читаются из Firebase Firestore, файлы загружаются в Firebase Storage, интерфейс адаптирован под desktop/tablet/mobile, а админ-панель позволяет редактировать материалы без изменения кода.
 
-- Главная страница, новости, газета, учебный центр, медиа, подкасты, видео-опросы, языковая политика, партнеры, о проекте и контакты.
-- Двухъязычный интерфейс: кыргызский и русский языки.
-- Админ-панель на `/admin` для управления контентом.
-- CRUD для новостей, газет, медиа и уроков.
-- Загрузка файлов, включая PDF, изображения, аудио и видео.
-- Рабочие формы подписки и обратной связи.
-- YouTube embed-player для видео и отдельный audio-player для подкастов.
-- PostgreSQL для серверных данных.
-- Firebase Hosting и Firestore-синхронизация для hosted-версии.
-- Swagger UI для проверки API.
+## Демо
 
-## Стек
+![Демонстрация проекта](public/readme/demo.gif)
 
-Frontend:
+## Скриншоты
 
-- React 19
+### Главная страница
+
+![Главная страница](public/readme/home.png)
+
+### Газета
+
+![Газета Кыргыз тили](public/readme/newspaper.png)
+
+### Учебный центр
+
+![Учебный центр](public/readme/learning.png)
+
+### Новости
+
+![Новости](public/readme/news.png)
+
+## Основной функционал
+
+- Главная страница с hero-блоком, быстрыми переходами и последними материалами.
+- Раздел газеты с выпусками, PDF, фильтрацией по годам и рубриками статей.
+- Учебный центр с уроками, видео-уроками, тестами и методическими материалами.
+- Медиа-раздел с подкастами и видео-опросами.
+- Detail-страницы для новостей, уроков, подкастов и видео.
+- Рабочие кнопки "Поделиться" через Web Share API и fallback-меню с WhatsApp, Telegram, Facebook, X, Email и копированием ссылки.
+- Двуязычный интерфейс: кыргызский и русский.
+- Админ-панель для управления контентом.
+- Загрузка PDF и медиафайлов через Firebase Storage.
+- Хранение данных во Firestore.
+- Firebase Hosting для публикации сайта.
+- Swagger/Express backend оставлен в проекте как дополнительный backend-вариант.
+
+## Технологии
+
+- React
 - TypeScript
 - Vite
 - Redux Toolkit
 - Axios
-- React Router
 - Tailwind CSS
-- Lucide React
-
-Backend:
-
-- Node.js
-- Express
-- TypeScript
-- PostgreSQL
-- Multer
-- Swagger UI
-
-Hosting:
-
-- Firebase Hosting
+- React Router
 - Firebase Firestore
+- Firebase Storage
+- Firebase Hosting
+- Node.js / Express
+- PostgreSQL
+- Swagger
 
-## Структура проекта
+## Архитектура
 
-```txt
-src/
-  components/        # переиспользуемые UI и секции страниц
-  context/           # React context, например LanguageContext
-  features/          # крупные frontend-фичи: admin, auth, forms
-  lib/               # api clients, helpers, media utils
-  modules/           # redux-модули: slice, thunk, types
-  pages/             # route pages
-  routes/            # маршрутизация приложения
-  store/             # redux store
-  translations/      # ky.ts, ru.ts и типы переводов
-
-server/
-  index.ts
-  sql/               # SQL-схема
-  src/
-    app.ts
-    main.ts
-    config/          # env-настройки
-    db/              # PostgreSQL pool, schema, seed data
-    docs/            # Swagger/OpenAPI
-    middlewares/     # error handler, admin guard
-    modules/         # backend-модули: auth, content, forms, uploads
-    shared/          # общие backend helpers
-  uploads/           # загруженные файлы
-
-scripts/
-  syncServerContent.ts
-  syncHostedContent.ts
-  uploadDataClient.ts
+```text
+kyrgyz-til/
+├── src/
+│   ├── components/       # UI и переиспользуемые компоненты
+│   ├── features/         # feature-модули: admin, auth, forms, siteSettings
+│   ├── modules/          # Redux-модули: news, media, lessons, newspapers
+│   ├── pages/            # страницы приложения
+│   ├── routes/           # маршрутизация
+│   ├── store/            # Redux store
+│   ├── translations/     # переводы ky/ru
+│   └── lib/              # Firebase, API helpers, utils
+├── server/               # Express API, PostgreSQL, Swagger
+├── public/readme/        # изображения и GIF для README
+├── firebase.json         # Firebase Hosting/Firestore/Storage config
+├── firestore.rules       # правила Firestore
+├── storage.rules         # правила Firebase Storage
+└── package.json
 ```
 
-## Установка
+## Страницы
+
+- `/` — главная
+- `/newspaper` — газета "Кыргыз тили"
+- `/learning` — учебный центр
+- `/media` — медиа
+- `/media/podcast` — подкасты
+- `/media/survey` — видео-опросы
+- `/news` — новости
+- `/language-policy` — языковая политика
+- `/partners` — партнеры
+- `/about` — о проекте
+- `/contact` — контакты
+- `/admin` — админ-панель
+
+## Админ-панель
+
+Админ-панель позволяет управлять контентом сайта без участия разработчика:
+
+- создавать, редактировать и удалять новости;
+- добавлять выпуски газеты и PDF;
+- управлять медиа, подкастами и видео;
+- редактировать уроки;
+- менять настройки страниц;
+- загружать файлы в Firebase Storage.
+
+Идея CMS в проекте: все данные, которые пользователь видит на сайте, должны приходить из хранилища и редактироваться через админку, а не быть зашитыми в компонентах.
+
+## Локальный запуск
+
+Установить зависимости:
 
 ```bash
 npm install
 ```
 
-Создайте `.env` на основе `.env.example`.
-
-```env
-API_PORT=4000
-ADMIN_PASSWORD="change-me"
-ADMIN_TOKEN="replace-with-long-random-token"
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/kyrgyztil"
-
-VITE_API_URL="http://localhost:4000"
-VITE_ADMIN_TOKEN="change-me"
-```
-
-Важно: настоящий `.env` нельзя коммитить в GitHub, потому что там хранятся пароли и токены.
-
-## Запуск локально
-
-Backend:
-
-```bash
-npm run dev:api
-```
-
-Frontend:
+Запустить frontend:
 
 ```bash
 npm run dev
 ```
 
-Адреса:
+Приложение будет доступно:
 
-- Frontend: `http://127.0.0.1:3000`
-- Backend API: `http://127.0.0.1:4000/api`
-- Swagger: `http://127.0.0.1:4000/docs`
-- Admin panel: `http://127.0.0.1:3000/admin`
+```text
+http://localhost:3000
+```
 
-Можно запустить frontend и backend вместе:
+## Firebase
+
+Публичная часть проекта работает напрямую с Firebase:
+
+- Firestore — данные сайта;
+- Storage — PDF, изображения, аудио и другие файлы;
+- Hosting — публикация frontend.
+
+Коллекции Firestore:
+
+```text
+news
+newspapers
+media
+lessons
+siteSettings
+subscriptions
+contact_messages
+```
+
+Деплой правил:
 
 ```bash
-npm run dev:all
+npx firebase deploy --only firestore:rules,storage
 ```
 
-## PostgreSQL
-
-Проект использует PostgreSQL как основную серверную базу данных.
-
-При старте backend:
-
-- создаются нужные таблицы;
-- добавляются начальные данные, если таблицы пустые;
-- API начинает отдавать данные frontend-приложению.
-
-Основные таблицы:
-
-- `news`
-- `newspapers`
-- `media`
-- `lessons`
-- `subscriptions`
-- `contact_messages`
-
-Файлы загружаются в `server/uploads`, а в PostgreSQL сохраняется ссылка на файл.
-
-## Swagger
-
-Swagger доступен по адресу:
-
-```txt
-http://127.0.0.1:4000/docs
-```
-
-Через Swagger можно смотреть и тестировать endpoints API без Postman.
-
-Основные endpoints:
-
-- `POST /api/auth/login`
-- `GET /api/news`
-- `POST /api/news`
-- `PUT /api/news/:id`
-- `DELETE /api/news/:id`
-- `GET /api/newspapers`
-- `POST /api/newspapers`
-- `GET /api/media`
-- `POST /api/media`
-- `GET /api/lessons`
-- `POST /api/lessons`
-- `POST /api/uploads`
-- `POST /api/forms/subscriptions`
-- `POST /api/forms/contact-messages`
-
-## Админ-панель
-
-Админ-панель находится по адресу:
-
-```txt
-/admin
-```
-
-В ней можно:
-
-- добавлять и редактировать новости;
-- добавлять газеты и PDF;
-- добавлять видео, подкасты и медиа;
-- добавлять уроки;
-- загружать файлы;
-- менять данные, которые отображаются на сайте.
-
-Для защиты используется admin token/password из `.env`. В реальном production-проекте лучше подключить полноценную авторизацию: JWT, refresh tokens, роли пользователей и хранение токенов в httpOnly cookies.
-
-## Firebase Hosting
-
-Production-сборка:
+Сборка:
 
 ```bash
 npm run build
 ```
 
-Деплой на Firebase Hosting:
+Деплой сайта:
 
 ```bash
 npx firebase deploy --only hosting
 ```
 
-Hosted-версия может брать данные из Firestore. Для синхронизации контента есть scripts:
+## Backend
+
+В проекте также есть backend на Express + PostgreSQL:
+
+- REST API;
+- Swagger UI;
+- загрузка файлов;
+- PostgreSQL schema/seed.
+
+Backend можно использовать как альтернативу Firebase или как основу для production API.
+
+Запуск:
 
 ```bash
-npm run sync:hosting
-npm run sync:server
+npm run dev:api
 ```
 
-## Проверка проекта
+Swagger:
 
-TypeScript-проверка:
+```text
+http://localhost:4000/docs
+```
+
+## Скрипты
 
 ```bash
-npm run lint
+npm run dev          # запуск frontend
+npm run build        # production build
+npm run preview      # preview production build
+npm run lint         # TypeScript-проверка
+npm run dev:api      # запуск Express backend
+npm run dev:all      # запуск backend вместе с frontend
+npm run sync:hosting # синхронизация данных для hosted-версии
+npm run sync:server  # синхронизация данных с server-версией
 ```
 
-Production build:
+## Что я реализовала в проекте
 
-```bash
-npm run build
-```
+- Спроектировала структуру многостраничного портала.
+- Реализовала адаптивный интерфейс на React + TypeScript.
+- Настроила Redux-модули для данных.
+- Подключила Firestore как основной источник контента.
+- Сделала CMS-подход через админ-панель.
+- Добавила загрузку файлов в Firebase Storage.
+- Реализовала мультиязычность.
+- Настроила Firebase Hosting.
+- Добавила backend API со Swagger как расширяемую серверную часть.
+- Улучшила UX: lazy-loading страниц, fallback-состояния, фильтры, media players, share-меню.
 
-## Возможные названия второго коммита
+## Статус
 
-Лучший вариант:
-
-```txt
-feat: add backend, admin panel and content management
-```
-
-Другие хорошие варианты:
-
-```txt
-feat: implement full-stack portal with admin dashboard
-feat: connect frontend to API and add admin content editor
-feat: add PostgreSQL backend, Swagger docs and Firebase hosting flow
-```
-
-Если коммит включает еще и рефакторинг архитектуры:
-
-```txt
-feat: add backend, admin panel and clean project architecture
-```
+Проект готов для демонстрации в портфолио и может быть расширен до production-версии: закрытые правила Firebase, Firebase Auth для админов, роли пользователей, серверная валидация и CI/CD.
